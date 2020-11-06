@@ -1,0 +1,8 @@
+<#if licenseFirst??>
+${licenseFirst}
+</#if>
+${licensePrefix}Whiteboard Clone Application Test 2
+${licensePrefix}By: Ian Skelskey
+<#if licenseLast??>
+${licenseLast}
+</#if>
