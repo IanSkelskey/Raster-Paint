@@ -16,6 +16,9 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ColorPicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.BoxBlur;
+import javafx.scene.shape.StrokeLineCap;
+import javafx.scene.shape.StrokeLineJoin;
 
 /**
  *
@@ -47,18 +50,29 @@ public class FXMLDocumentController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         brushTool = canvas.getGraphicsContext2D();
-        
+
+        //Adds a slight blur tool the brush tool.
+        BoxBlur blur = new BoxBlur();
+        blur.setWidth(1);
+        blur.setHeight(1);
+        blur.setIterations(1);
+        canvas.setEffect(blur);
+
         canvas.setOnMousePressed(e -> {
             lastX = e.getX();
             lastY = e.getY();
         });
 
         canvas.setOnMouseDragged(e -> {
-            
+
             double size = Double.parseDouble(bsize.getText());
             double x = e.getX() - size / 2;
             double y = e.getY() - size / 2;
 
+            //Change the endings of lines from squared to rounded
+            brushTool.setLineCap(StrokeLineCap.ROUND);
+            brushTool.setLineJoin(StrokeLineJoin.ROUND);
+            //Set line with (want to implement pressure sensitivity)
             brushTool.setLineWidth(size);
             brushTool.setStroke(colorPicker.getValue());
             brushTool.strokeLine(lastX, lastY, x, y);
