@@ -17,7 +17,7 @@
          <children>
             <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0">
                <children>
-                  <ToggleButton mnemonicParsing="false" onAction="#brushToggle" text="Brush">
+                  <ToggleButton fx:id="btnBrush" mnemonicParsing="false" onAction="#brushToggle" text="Brush">
                      <toggleGroup>
                         <ToggleGroup fx:id="grpTools" />
                      </toggleGroup>
@@ -25,7 +25,12 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </HBox.margin>
                   </ToggleButton>
-                  <ToggleButton mnemonicParsing="false" onAction="#eraserToggle" text="Eraser" toggleGroup="$grpTools">
+                  <ToggleButton mnemonicParsing="false" onAction="#rectangleToggle" text="Rectangle" toggleGroup="$grpTools">
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </ToggleButton>
+                  <ToggleButton fx:id="btnEraser" mnemonicParsing="false" onAction="#eraserToggle" text="Eraser" toggleGroup="$grpTools">
                      <HBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </HBox.margin>
