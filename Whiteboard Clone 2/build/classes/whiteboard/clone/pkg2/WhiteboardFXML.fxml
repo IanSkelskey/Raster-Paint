@@ -27,14 +27,24 @@
               <menus>
                 <Menu mnemonicParsing="false" text="File">
                   <items>
+                        <MenuItem mnemonicParsing="false" text="New" />
+                        <MenuItem mnemonicParsing="false" text="Open" />
+                        <MenuItem mnemonicParsing="false" onAction="#saveCanvas" text="Save" />
                     <MenuItem mnemonicParsing="false" text="Close" />
                   </items>
                 </Menu>
                 <Menu fx:id="edit" mnemonicParsing="false" text="Edit">
                   <items>
+                        <MenuItem mnemonicParsing="false" text="Copy" />
+                        <MenuItem mnemonicParsing="false" text="Paste" />
                     <MenuItem mnemonicParsing="false" onAction="#editCanvasSize" text="Canvas Size" />
                   </items>
                 </Menu>
+                  <Menu mnemonicParsing="false" text="Insert">
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="Image" />
+                    </items>
+                  </Menu>
                 <Menu mnemonicParsing="false" text="Help">
                   <items>
                     <MenuItem mnemonicParsing="false" text="About" />
@@ -73,6 +83,20 @@
                      </HBox.margin>
                   </ToggleButton>
                   <ToggleButton fx:id="btnEraser" mnemonicParsing="false" onAction="#eraserToggle" text="Eraser" toggleGroup="$grpTools">
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </ToggleButton>
+               </children>
+            </HBox>
+            <HBox fx:id="transformToolBar" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <ToggleButton mnemonicParsing="false" text="Pan" toggleGroup="$grpTools">
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </ToggleButton>
+                  <ToggleButton mnemonicParsing="false" text="Zoom" toggleGroup="$grpTools">
                      <HBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </HBox.margin>
@@ -176,6 +200,16 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </HBox.margin>
                   </Button>
+                  <Label text="Background Color:">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="8.0" />
+                     </padding>
+                  </Label>
+                  <ColorPicker fx:id="backgroundPicker">
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </ColorPicker>
                </children>
             </HBox>
          </children>
