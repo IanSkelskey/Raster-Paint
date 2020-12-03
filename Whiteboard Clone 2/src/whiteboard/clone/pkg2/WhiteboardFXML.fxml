@@ -1,25 +1,133 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
-<?import javafx.scene.canvas.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ColorPicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.effect.GaussianBlur?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 
-<AnchorPane id="AnchorPane" prefHeight="379.0" prefWidth="621.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="whiteboard.clone.pkg2.FXMLDocumentController">
+<AnchorPane id="AnchorPane" fx:id="window" prefHeight="480.0" prefWidth="760.0" style="-fx-border-color: black;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="whiteboard.clone.pkg2.FXMLDocumentController">
     <children>
-      <VBox prefHeight="32.0" prefWidth="621.0">
+      <VBox fx:id="master" prefHeight="35.0" prefWidth="760.0">
          <children>
-            <HBox prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+            <MenuBar fx:id="menu" minHeight="-Infinity" minWidth="-Infinity">
+              <menus>
+                <Menu mnemonicParsing="false" text="File">
+                  <items>
+                        <MenuItem mnemonicParsing="false" text="New" />
+                        <MenuItem mnemonicParsing="false" text="Open" />
+                        <MenuItem mnemonicParsing="false" onAction="#saveCanvas" text="Save" />
+                    <MenuItem mnemonicParsing="false" text="Close" />
+                  </items>
+                </Menu>
+                <Menu fx:id="edit" mnemonicParsing="false" text="Edit">
+                  <items>
+                        <MenuItem mnemonicParsing="false" text="Copy" />
+                        <MenuItem mnemonicParsing="false" text="Paste" />
+                    <MenuItem mnemonicParsing="false" onAction="#editCanvasSize" text="Canvas Size" />
+                  </items>
+                </Menu>
+                  <Menu mnemonicParsing="false" text="Insert">
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="Image" />
+                    </items>
+                  </Menu>
+                <Menu mnemonicParsing="false" text="Help">
+                  <items>
+                    <MenuItem mnemonicParsing="false" text="About" />
+                  </items>
+                </Menu>
+              </menus>
+            </MenuBar>
+            <HBox fx:id="toolBar" prefHeight="35.0" prefWidth="689.0" spacing="5.0">
                <children>
-                  <CheckBox fx:id="chkBrush" mnemonicParsing="false" onAction="#toolSelected" text="Brush">
+                  <ToggleButton fx:id="btnBrush" mnemonicParsing="false" onAction="#brushToggle" text="Brush">
+                     <toggleGroup>
+                        <ToggleGroup fx:id="grpTools" />
+                     </toggleGroup>
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </ToggleButton>
+                  <ToggleButton mnemonicParsing="false" onAction="#rectangleToggle" text="Rectangle" toggleGroup="$grpTools">
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </ToggleButton>
+                  <ToggleButton mnemonicParsing="false" onAction="#ellipseToggle" text="Ellipse" toggleGroup="$grpTools">
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </ToggleButton>
+                  <ToggleButton mnemonicParsing="false" onAction="#triangleToggle" text="Triangle" toggleGroup="$grpTools">
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </ToggleButton>
+                  <ToggleButton mnemonicParsing="false" onAction="#lineToggle" text="Line" toggleGroup="$grpTools">
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </ToggleButton>
+                  <ToggleButton fx:id="btnEraser" mnemonicParsing="false" onAction="#eraserToggle" text="Eraser" toggleGroup="$grpTools">
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </ToggleButton>
+               </children>
+            </HBox>
+            <HBox fx:id="transformToolBar" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <ToggleButton mnemonicParsing="false" text="Pan" toggleGroup="$grpTools">
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </ToggleButton>
+                  <ToggleButton mnemonicParsing="false" text="Zoom" toggleGroup="$grpTools">
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </ToggleButton>
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <StackPane fx:id="artboard" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="410.0" prefWidth="760.0">
+                     <children>
+                        <Canvas fx:id="background" height="410.0" width="760.0" />
+                        <Canvas fx:id="canvas" height="410.0" style="-fx-cursor: dot;" width="760.0" />
+                        <Canvas fx:id="canvasPrev" height="410.0" width="760.0">
+                        </Canvas>
+                     </children>
+                  </StackPane>
+               </children>
+            </HBox>
+            <HBox fx:id="botBar1" minHeight="-Infinity" prefHeight="35.0" prefWidth="760.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#switchColors" text="Switch Colors">
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Label text="Fill Color: " textAlignment="RIGHT">
                      <HBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="8.0" />
                      </HBox.margin>
-                  </CheckBox>
-                  <ColorPicker fx:id="colorPicker">
+                  </Label>
+                  <ColorPicker fx:id="colorPicker" minHeight="-Infinity">
                      <HBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </HBox.margin>
@@ -34,34 +142,77 @@
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </HBox.margin>
                   </TextField>
-               </children>
-            </HBox>
-            <HBox prefHeight="100.0" prefWidth="200.0">
-               <children>
-                  <CheckBox fx:id="chkRectangle" mnemonicParsing="false" onAction="#toolSelected" text="Rectangle">
+                  <Circle radius="4.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="11.0" />
+                     </HBox.margin>
+                  </Circle>
+                  <Slider fx:id="brushHardness" blockIncrement="1.0" majorTickUnit="1.0" max="5.0" min="1.0" minorTickCount="0" prefHeight="14.0" prefWidth="71.0" showTickMarks="true" snapToTicks="true" value="1.0">
                      <HBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="8.0" />
                      </HBox.margin>
-                  </CheckBox>
-                  <ColorPicker>
+                  </Slider>
+                  <Circle radius="4.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0">
+                     <effect>
+                        <GaussianBlur />
+                     </effect>
                      <HBox.margin>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="11.0" />
                      </HBox.margin>
-                  </ColorPicker>
-                  <Label text="Stroke: ">
+                  </Circle>
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets bottom="35.0" />
+               </padding>
+            </HBox>
+            <HBox fx:id="botBar2" prefHeight="35.0" prefWidth="760.0">
+               <children>
+                  <Label text="Stroke Color: ">
                      <HBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="8.0" />
                      </HBox.margin>
                   </Label>
-                  <TextField prefHeight="25.0" prefWidth="47.0">
+                  <ColorPicker fx:id="strokePicker">
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </ColorPicker>
+                  <Label fx:id="lblStroke" text="Stroke: " textAlignment="RIGHT">
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="8.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="txtStroke" prefHeight="25.0" prefWidth="46.0">
                      <HBox.margin>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </HBox.margin>
                   </TextField>
+                  <Button fx:id="btnUndo" mnemonicParsing="false" onAction="#undoPressed" text="Undo">
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Button fx:id="btnClear" mnemonicParsing="false" onAction="#clearPressed" text="Clear">
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </Button>
+                  <Label text="Background Color:">
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="8.0" />
+                     </padding>
+                  </Label>
+                  <ColorPicker fx:id="backgroundPicker">
+                     <HBox.margin>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </HBox.margin>
+                  </ColorPicker>
                </children>
             </HBox>
          </children>
       </VBox>
-      <Canvas fx:id="canvas" height="288.0" layoutX="13.0" layoutY="77.0" style="-fx-cursor: dot;" width="594.0" />
     </children>
 </AnchorPane>
